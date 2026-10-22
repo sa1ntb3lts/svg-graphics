@@ -86,6 +86,20 @@ public class TagsHandler  extends DefaultHandler {
             shapes.add(currentShape);
         }
 
+        if (tagName.equals("rect")) {
+            currentShape = new Properties();
+            currentShape.put("type", "rect");
+            copyAttributes(atts, currentShape);
+            shapes.add(currentShape);
+        }
+
+        if (tagName.equals("ellipse")) {
+            currentShape = new Properties();
+            currentShape.put("type", "ellipse");
+            copyAttributes(atts, currentShape);
+            shapes.add(currentShape);
+        }
+
     }
 
     private void copyAttributes(Attributes atts, Properties myShape) {
