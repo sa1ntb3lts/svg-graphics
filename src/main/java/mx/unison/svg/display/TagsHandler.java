@@ -79,6 +79,13 @@ public class TagsHandler  extends DefaultHandler {
             shapes.add(currentShape);
         }
 
+        if (tagName.equals("polyline")) {
+            currentShape = new Properties();
+            currentShape.put("type", "polyline");
+            copyAttributes(atts, currentShape);
+            shapes.add(currentShape);
+        }
+
     }
 
     private void copyAttributes(Attributes atts, Properties myShape) {
