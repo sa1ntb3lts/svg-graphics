@@ -314,7 +314,58 @@ public class SVGDiagram extends JComponent {
                     }
                 }
             }
+            if (type.equals("ellipse")) {
+                String cxStr = shape.getProperty("cx");
+                String cyStr = shape.getProperty("cy");
+                String rxStr = shape.getProperty("rx");
+                String ryStr = shape.getProperty("ry");
+                String fill = shape.getProperty("fill");
+                String stroke = shape.getProperty("stroke");
+                String strokeWidthStr = shape.getProperty("stroke-width");
 
+                if (cxStr != null && cyStr != null && rxStr != null && ryStr != null) {
+                    double cx = Double.parseDouble(cxStr);
+                    double cy = Double.parseDouble(cyStr);
+                    double rx = Double.parseDouble(rxStr);
+                    double ry = Double.parseDouble(ryStr);
+
+                    if (strokeWidthStr != null) {
+                        try {
+                            float strokeWidth = Float.parseFloat(strokeWidthStr);
+                            currentStroke = new BasicStroke(strokeWidth);
+                            g2d.setStroke(currentStroke);
+                        } catch (NumberFormatException e) {
+                            currentStroke = new BasicStroke(1.0f);
+                            g2d.setStroke(currentStroke);
+                        }
+                    }
+
+                    int x = (int) (cx - rx);
+                    int y = (int) (cy - ry);
+                    int width = (int) (2 * rx);
+                    int height = (int) (2 * ry);
+
+                    if (fill != null && !fill.equalsIgnoreCase("none")) {
+                        try {
+                            fillColor = Color.decode(fill);
+                        } catch (NumberFormatException e) {
+                            fillColor = parseColor(fill, 1.0f);
+                        }
+                        g2d.setColor(fillColor);
+                        g2d.fillOval(x, y, width, height);
+                    }
+
+                    if (stroke != null && !stroke.equalsIgnoreCase("none")) {
+                        try {
+                            strokeColor = Color.decode(stroke);
+                        } catch (NumberFormatException e) {
+                            strokeColor = parseColor(stroke, 1.0f);
+                        }
+                        g2d.setColor(strokeColor);
+                        g2d.drawOval(x, y, width, height);
+                    }
+                }
+            }
         }
 
     }
