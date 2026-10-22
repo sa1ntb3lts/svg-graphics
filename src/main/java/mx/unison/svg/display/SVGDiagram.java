@@ -366,6 +366,36 @@ public class SVGDiagram extends JComponent {
                     }
                 }
             }
+            if (type.equals("text")) {
+                String xStr = shape.getProperty("x");
+                String yStr = shape.getProperty("y");
+                String fontFamily = shape.getProperty("font-family");
+                String fontSizeStr = shape.getProperty("font-size");
+                String fill = shape.getProperty("fill");
+                String content = shape.getProperty("content");
+
+                if (xStr != null && yStr != null && content != null) {
+                    int x = Integer.parseInt(xStr);
+                    int y = Integer.parseInt(yStr);
+
+                    String family = fontFamily != null ? fontFamily : "SansSerif";
+                    int size = fontSizeStr != null ? Integer.parseInt(fontSizeStr) : 12;
+                    g2d.setFont(new Font(family, Font.PLAIN, size));
+
+                    if (fill != null && !fill.equalsIgnoreCase("none")) {
+                        try {
+                            fillColor = Color.decode(fill);
+                        } catch (NumberFormatException e) {
+                            fillColor = parseColor(fill, 1.0f);
+                        }
+                        g2d.setColor(fillColor);
+                    } else {
+                        g2d.setColor(Color.BLACK);
+                    }
+
+                    g2d.drawString(content.trim(), x, y);
+                }
+            }
         }
 
     }

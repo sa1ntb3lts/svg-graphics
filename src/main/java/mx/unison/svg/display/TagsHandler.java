@@ -100,6 +100,14 @@ public class TagsHandler  extends DefaultHandler {
             shapes.add(currentShape);
         }
 
+        if (tagName.equals("text")) {
+            currentShape = new Properties();
+            currentShape.put("type", "text");
+            currentShape.put("content", "");
+            copyAttributes(atts, currentShape);
+            shapes.add(currentShape);
+        }
+
     }
 
     private void copyAttributes(Attributes atts, Properties myShape) {
@@ -119,7 +127,11 @@ public class TagsHandler  extends DefaultHandler {
 
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
-
+        if (currentShape != null && "text".equals(currentShape.getProperty("type"))) {
+            String text = new String(ch, start, length);
+            String existing = currentShape.getProperty("content");
+            currentShape.put("content", existing + text);
+        }
     }
 
     @Override
