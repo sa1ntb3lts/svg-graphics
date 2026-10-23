@@ -1,5 +1,7 @@
 ##  Procesamiento y visualización de archivos SVG con Java
 
+Estudiante: Santiago Beltran Astorga 225203551
+
 Proyecto didáctico que muestra cómo leer documentos **SVG (Scalable Vector Graphics)** mediante el analizador XML **SAX**,
 describir sus elementos, calcular propiedades geométricas y dibujar algunas figuras en una ventana **Swing/Java 2D**.
 
